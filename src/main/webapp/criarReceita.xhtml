@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<h:head>
+	</h:head>
+
+	<ui:define name="titulo">Projeto Fuctura</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Criar Receita</h1>
+
+
+		<h:form id="Cadastro">
+			<p:messages id="messages" showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<p:column colspan="2">
+				<p:commandLink value="Salvar" update="@form"
+					style="margin-right:80px;color:green;"
+					actionListener="#{ReceitaBean.salvar}" resetValues="panel2,grid1" />
+				<p:commandLink value="Limpar" update="@form" style="color:green;"
+					actionListener="#{UsuarioBean.abrirManterUsuario}"
+					resetValues="panel2,grid1" immediate="true" />
+			</p:column>
+			<p:column>
+
+				<p:commandLink value="Cancelar"
+					style="margin-left:20px;color:green;"
+					actionListener="#{UsuarioBean.abrirLogin}" immediate="true" />
+
+			</p:column>
+			<p:panelGrid id="grid1" style="width: 50%">
+				<p:row>
+					<p:column style="width:40px">
+						<p:outputLabel value="Nome da receita" />
+						<p:inputText value="#{ReceitaBean.receita.nome}" required="true" />
+					</p:column>
+					<p:column style="width:40px">
+						<h:outputLabel value="Modo preparo: " />
+
+						<h:inputTextarea rows="20" cols="50" id="modo"
+							value="#{ReceitaBean.receita.modoPreparo}" required="true" />
+					</p:column>
+					<p:column style="width:40px">
+						<p:outputLabel value="Tempo de preparo" for="descricao" />
+
+						<p:inputText id="descricao" size="15"
+							value="#{ReceitaBean.receita.tempoPreparo}" />
+					</p:column>
+					
+					<p:column style="width:40px">
+						<p:outputLabel value="Usuario"  />
+
+						<p:inputText  size="15"
+							value="#{ReceitaBean.receita.usuario.email}" target= "#{ReceitaBean.usuario.email}"/>
+					</p:column>
+					
+					
+				</p:row>
+
+
+				<p:row>
+					<p:column colspan="4">
+						<p:panel id="panel2" header="Ingredientes">
+							<p:panelGrid columns="7" style="width: 50%">
+								<h:outputLabel value="Nome: " />
+								<p:inputText size="10" value="#{ReceitaBean.ingrediente.nome}" />
+								<h:outputLabel value="Quantidade: " />
+								<p:inputText id="quant" size="6"
+									value="#{ReceitaBean.ingrediente.tipo}" />
+
+								<p:commandLink value="Adicionar " style="color:blue;"
+									update="ingredientes"
+									actionListener="#{ReceitaBean.adicionarIngrediente}" />
+							</p:panelGrid>
+							<p:dataTable id="ingredientes" var="ingrediente"
+								value="#{ReceitaBean.receita.ingredientes}">
+								<p:column headerText="Nome">
+									<h:outputText value="#{ingrediente.nome}" />
+								</p:column>
+								<p:column headerText="Quantidade">
+									<h:outputText value="#{ingrediente.tipo}" />
+								</p:column>
+
+							</p:dataTable>
+						</p:panel>
+					</p:column>
+				</p:row>
+
+
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+

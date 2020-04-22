@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+
+
+	<ui:define name="corpo">
+
+		<p:panel id="painel" header="Lista de receitas "
+			style="margin-bottom:10px; width: 70%">
+
+
+			<h:form id="frm">
+				<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+				<p:panelGrid style="width: 50%">
+				<p:row>
+				<p:column style="width:40px">
+					<h:outputLabel value="Ingrediente: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:inputText value="#{ReceitaBean.nomePesquisa}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="width:40px">
+					<h:outputLabel value="Email: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:inputText value="#{ReceitaBean.emailPesquisa}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column style="width:100px">
+					<h:outputLabel value="Buscar: " />
+				</p:column>
+				<p:column colspan="2" style="width:400px">
+					<p:commandLink value=" Por Ingrediente " update="@form,painel"
+						style="margin-right:10px;color:blue;"
+						actionListener="#{ReceitaBean.pesquisarIngrediente}" />
+					<p:commandLink value=" Por email " update="@form,painel"
+						style="margin-right:10px;color:blue;"
+						actionListener="#{ReceitaBean.pesquisarUsuario}" />
+				</p:column>
+			</p:row>
+           </p:panelGrid>
+			
+                <p:row>
+				<p:dataTable value="#{ReceitaBean.receitas}" var="receita"
+					border="1" cellspacing="0" cellpadding="2" paginator="true"
+					rows="5" paginatorPosition="bottom">
+					<p:column headerText="Nome" sortBy="#{receita.nome}">
+						<h:outputText value="#{receita.nome}" />
+					</p:column>
+					<p:column headerText="Ingredientes">
+						<h:outputText value="#{receita.ingredientes}" />
+					</p:column>
+					<p:column headerText="Usuário">
+						<h:outputText value="#{receita.usuario}" />
+					</p:column>
+					<p:column headerText="Exibir" width="10%">
+						<p:commandButton update="@form"
+							oncomplete="PF('usuarioDialog3').show()" icon="fa fa-fw fa-edit"
+							title="Editar">
+							<f:setPropertyActionListener value="#{receita}"
+								target="#{ReceitaBean.receita}" />
+						</p:commandButton>
+					</p:column>
+					<p:column headerText="Excluir" width="10%">
+						<p:commandButton update="@form"
+							oncomplete="PF('usuarioDialog2').show()"
+							icon="fa fa-fw fa-remove" title="Excluir">
+							<f:setPropertyActionListener value="#{receita}"
+								target="#{ReceitaBean.receita}" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				</p:row>
+				<p:dialog header="Excluir receita?" widgetVar="usuarioDialog2"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="usuarioDetail2" style="text-align:center;">
+						<p:panelGrid columns="2" columnClasses="label,value">
+							<h:outputText value="Nome" />
+							<h:outputText value="#{ReceitaBean.receita.nome}" />
+							<h:outputText value="Email" />
+							<h:outputText value="#{ReceitaBean.receita.usuario.email}" />
+							<h:outputText value="Ingredientes:" />
+							<h:outputText value="#{ReceitaBean.receita.ingredientes}" />
+							<p:commandButton value="Confirma" updta="@form"
+								onclick="dialog.hide()" action="#{ReceitaBean.removerReceita}">
+								<f:setPropertyActionListener target="#{ReceitaBean.receita}"
+									value="#{ReceitaBean.receita}" />
+							</p:commandButton>
+
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+
+				<p:dialog header="Exibir receita" widgetVar="usuarioDialog3"
+					modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+					<p:outputPanel id="usuarioDetail3" style="text-align:center;">
+						<p:panelGrid columns="8" columnClasses="label,value">
+							<h:outputText value="Nome" />
+							<h:outputText value="#{ReceitaBean.receita.nome}" />
+							<h:outputText value="Email" />
+							<h:outputText value="#{ReceitaBean.receita.usuario.email}" />
+							<h:outputText value="Tempo de preparo" />
+							<h:outputText value="#{ReceitaBean.receita.tempoPreparo}" />
+							<h:outputText value="Modo de preparo" />
+							<h:inputTextarea rows="15" cols="30"
+								value="#{ReceitaBean.receita.modoPreparo}" />
+
+						</p:panelGrid>
+					</p:outputPanel>
+					<p:column colspan="4">
+						<p:panel id="panel2" header="Ingredientes">
+							<p:messages id="message2" showDetail="true" autoUpdate="true"
+								closable="true" globalOnly="false" />
+
+							<p:dataTable id="ingredientes" var="ingrediente"
+								value="#{ReceitaBean.receita.ingredientes}" border="1"
+								cellspacing="0" cellpadding="2" paginator="true" rows="3"
+								paginatorPosition="bottom">
+								<p:column headerText="Nome">
+									<h:outputText value="#{ingrediente.nome}" />
+								</p:column>
+								<p:column headerText="Quantidade">
+									<h:outputText value="#{ingrediente.tipo}" />
+								</p:column>
+
+							</p:dataTable>
+						</p:panel>
+					</p:column>
+				</p:dialog>
+			</h:form>
+		</p:panel>
+	</ui:define>
+
+</ui:composition>
