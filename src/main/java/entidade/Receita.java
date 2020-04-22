@@ -28,7 +28,8 @@ public class Receita {
 	@ManyToOne
 	@JoinColumn(name = "email_usuario", referencedColumnName = "email", nullable = false)
 	private Usuario usuario;
-	@Column(name = "modopreparo")
+	
+	@Column(name = "modopreparo",length = 1337)
 	private String modoPreparo;
 	@Column(name = "tempopreparo")
 	private String tempoPreparo;

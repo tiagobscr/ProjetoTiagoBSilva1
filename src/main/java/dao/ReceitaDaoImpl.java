@@ -24,10 +24,10 @@ public class ReceitaDaoImpl implements ReceitaDao {
 	public boolean inserir(Receita receita) {
 		EntityTransaction tx = ent.getTransaction();
 		tx.begin();
-
+        
 		ent.persist(receita);
 		tx.commit();
-		ent.close();
+		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		FacesMessage facesMessage = new FacesMessage("Salvo com sucesso");
 		facesContext.addMessage(null, facesMessage);
@@ -45,7 +45,7 @@ public class ReceitaDaoImpl implements ReceitaDao {
 
 		ent.merge(receita);
 		tx.commit();
-		ent.close();
+		
 
 	}
 
@@ -56,7 +56,7 @@ public class ReceitaDaoImpl implements ReceitaDao {
 
 		ent.remove(receita);
 		tx.commit();
-		ent.close();
+		
 		
 
 	}
