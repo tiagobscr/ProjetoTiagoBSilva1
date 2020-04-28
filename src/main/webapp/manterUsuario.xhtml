@@ -40,7 +40,7 @@
 				</p:column>
 				<p:column colspan="4" style="width:40px">
 					<p:inputMask id="data" mask="99/99/9999"
-						value="#{UsuarioBean.data}" required="false">
+						value="#{UsuarioBean.data}" required="true">
 						<p:ajax listener="#{UsuarioBean.convertDate}" update="idade" />
 					</p:inputMask>
 				</p:column>

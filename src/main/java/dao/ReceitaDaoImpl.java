@@ -19,6 +19,7 @@ public class ReceitaDaoImpl implements ReceitaDao {
 	public ReceitaDaoImpl(EntityManager ent) {
 		this.ent = ent;
 	}
+	
 
 	@Override
 	public boolean inserir(Receita receita) {

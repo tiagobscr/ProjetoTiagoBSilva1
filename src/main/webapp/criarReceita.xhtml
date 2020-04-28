@@ -38,7 +38,8 @@
 				<p:row>
 					<p:column style="width:40px">
 						<p:outputLabel value="Nome da receita" />
-						<p:inputText value="#{ReceitaBean.receita.nome}" required="true" />
+						<p:inputText value="#{ReceitaBean.receita.nome}" id="nome"
+							required="true" />
 					</p:column>
 					<p:column style="width:40px">
 						<h:outputLabel value="Modo preparo: " />
@@ -52,15 +53,16 @@
 						<p:inputText id="descricao" size="15"
 							value="#{ReceitaBean.receita.tempoPreparo}" />
 					</p:column>
-					
-					<p:column style="width:40px">
-						<p:outputLabel value="Usuario"  />
 
-						<p:inputText  size="15"
-							value="#{ReceitaBean.receita.usuario.email}" target= "#{ReceitaBean.usuario.email}"/>
+					<p:column style="width:40px">
+						<p:outputLabel value="Usuario" />
+
+						<p:inputText size="15"
+							value="#{ReceitaBean.receita.usuario.email}"
+							target="#{ReceitaBean.usuario.email}" />
 					</p:column>
-					
-					
+
+
 				</p:row>
 
 
@@ -69,9 +71,9 @@
 						<p:panel id="panel2" header="Ingredientes">
 							<p:panelGrid columns="7" style="width: 50%">
 								<h:outputLabel value="Nome: " />
-								<p:inputText size="10" value="#{ReceitaBean.ingrediente.nome}" />
+								<p:inputText size="25" value="#{ReceitaBean.ingrediente.nome}" />
 								<h:outputLabel value="Quantidade: " />
-								<p:inputText id="quant" size="6"
+								<p:inputText id="quant" size="25"
 									value="#{ReceitaBean.ingrediente.tipo}" />
 
 								<p:commandLink value="Adicionar " style="color:blue;"
